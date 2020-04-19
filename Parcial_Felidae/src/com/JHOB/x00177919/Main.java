@@ -1,30 +1,33 @@
 package com.JHOB.x00177919;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
     static Scanner scan = new Scanner(System.in);
+    static Empleado empleado;
     public static void main(String[] args) throws ErrorInputDataException, InputMismatchException {
 
         //datos utilizados
         int opcion = 0;
         int trabajo = 0;
-        String nombre = "";
+        String nombreEmpleado = "";
         String puesto = "";
         double salario = 0.0;
         Empresa empresa;
         String nombreEmpresa= "";
         String nombreD = "";
-        int numero = 0;
+        String numero = "";
         int mesesContrato = 0;
-        int telefono = 0;
+        int extension = 0;
         String eliminar = "";
 
         ArrayList<Empleado> em = new ArrayList<>();
         CalculadoraImpuestos imp = new CalculadoraImpuestos();
-        ArrayList<Documento> documento = new ArrayList<>();
+        ArrayList<Documento> dm = new ArrayList<>();
 
         //empieza la codificacion
 
@@ -35,168 +38,157 @@ public class Main {
 
 
         do {
-            try{
-                System.out.print( "\nMenu Principal\n" + "1.Agregar empleado\n" + "2.Despedir empleado\n"
-                        + "3.ver lista de empleados\n" +
-                        "4.Calcular sueldo\n" + "5.Mostrar totales\n" + "0.salir\n" + "Su opcion: ");
+            boolean continuar = false;
+            do{
+                try{
+                    continuar = false;
 
-                opcion = scan.nextByte(); scan.nextLine();
+                    System.out.print(menu());
+                    opcion = scan.nextByte(); scan.nextLine();
+
+                }
+                catch (InputMismatchException ex){
+                    scan.nextLine();
+                    System.out.println("Ingrese numeros...");
+                    continuar = true;
+                }
 
             }
-            catch (InputMismatchException ex){
-                System.out.println("Ingrese numeros");
-            }
-            finally {
-                switch (opcion) {
-                    case 1:
-                        System.out.print("Nombre del empleado: ");
-                        nombre = scan.nextLine();
+            while (continuar);
+
+            switch (opcion) {
+                case 1:
+                    System.out.print("\nNombre del empleado: ");
+                    nombreEmpleado = scan.nextLine();
+                    System.out.print("Puesto del empleado: ");
+                    puesto = scan.nextLine();
 
 
-                        //verificador de que el problema se resolvio o no
-                        boolean flag = false;
+                    //verificador de que el problema se resolvio o no
+                    boolean flag = false;
+                    do {
                         try {
                             flag = false;
-                            System.out.print("Puesto del empleado\n 1.ServicioProfesional \t 2.Plaza fija\nSu opcion:");
+                            System.out.print("\nContrato del empleado \n1.Servicio Profesional \n2.Plaza fija \nSu opcion:");
                             trabajo = scan.nextByte();
                             scan.nextLine();
 
                             if (trabajo == 1) {
-                                flag = true;
-                                puesto = "Servicio profesional";
+                                System.out.print("Digite salario: ");
+                                salario = scan.nextDouble();
+                                scan.nextLine();
 
                                 System.out.print("Meses de servicio: ");
                                 mesesContrato = scan.nextInt();
                                 scan.nextLine();
 
-                                System.out.print("Digite salario: ");
-                                salario = scan.nextDouble();
-                                scan.nextLine();
-
-                                if (salario < 0) {
-                                    throw new ErrorInvalidDataException("No existe salario negativo");
+                                if (salario <= 0) {
+                                    throw new ErrorInvalidDataException("Ingrese un salario valido");
                                 }
 
-                                ServicioProfesional SP = new ServicioProfesional(nombre, puesto, salario, mesesContrato);
+                                ServicioProfesional SP = new ServicioProfesional(nombreEmpleado, puesto, salario, mesesContrato);
                                 empresa.addEmpleado(SP);
 
-                                System.out.println("Ingreso de identificacion");
-                                System.out.println("cuantos documetos va a querer llenar?");
+                                System.out.println("\nIngreso de identificacion");
+                                System.out.print("Cuantos documetos desea ingresar? ");
                                 int doc = scan.nextInt();
                                 scan.nextLine();
-
-                                em = empresa.getPlanilla();
 
                                 for (int i = 0; i < doc; i++) {
                                     System.out.print("Nombre de identificacion: ");
                                     nombreD = scan.nextLine();
 
                                     System.out.print("Numero de identificacion: ");
-                                    numero = scan.nextInt();
-                                    scan.nextLine();
+                                    numero = scan.nextLine();
 
-                                    String aux = numero + "";
-
-                                    String finalNombre = nombre;
-
-                                    String finalNombreD = nombreD;
-                                    String finalNumero = aux;
-
-                                    em.forEach(s -> {
-                                        if (s.nombreEmpleado == finalNombre) {
-                                            s.addDocumento(new Documento(finalNombreD, finalNumero));
-                                        }
-                                    });
+                                    empleado = new ServicioProfesional(nombreD, numero);
                                 }
 
 
                             } else if (trabajo == 2) {
-                                flag = true;
-                                puesto = "Plaza fija";
-
-                                System.out.print("Telefono ");
-                                telefono = scan.nextInt();
-                                scan.nextLine();
-
                                 System.out.print("Digite salario: ");
                                 salario = scan.nextDouble();
                                 scan.nextLine();
 
-                                if (salario < 0) {
-                                    throw new ErrorInvalidDataException("No existe salario negativo");
-                                }
-
-                                System.out.print("Nombre de identificacion: ");
-                                nombreD = scan.nextLine();
-
-                                System.out.print("Numero de identificacion: ");
-                                numero = scan.nextInt();
+                                System.out.print("Telefono ");
+                                extension = scan.nextInt();
                                 scan.nextLine();
 
-                                String aux = numero + "";
-
-                                PlazaFija PF = new PlazaFija(nombre, puesto, salario, telefono);
+                                if (salario <= 0) {
+                                    throw new ErrorInvalidDataException("Ingresar un salario valido");
+                                }
+                                PlazaFija PF = new PlazaFija(nombreEmpleado, puesto, salario, extension);
                                 empresa.addEmpleado(PF);
 
+                                System.out.println("\nIngreso de identificacion");
+                                System.out.print("Cuantos documetos desea ingresar? ");
+                                int docu = scan.nextInt();
+                                scan.nextLine();
+
+                                for (int i = 0; i < docu; i++) {
+                                    System.out.print("Nombre de identificacion: ");
+                                    nombreD = scan.nextLine();
+
+                                    System.out.print("Numero de identificacion: ");
+                                    numero = scan.nextLine();
+
+                                    empleado = new PlazaFija(nombreD, numero);
+
+                                }
+
+
                             }
-
-                            if (flag == false)
-                                throw new ErrorInvalidDataException("Dato invalido ingreselo de nuevo");
-                        }
-
-                        catch(ErrorInvalidDataException ex){
+                        } catch (ErrorInvalidDataException ex) {
                             System.out.println(ex.getMessage());
+                            flag = true;
+                        } catch (InputMismatchException ex) {
+                            scan.nextLine(); System.out.println("El valor no concuerda");
+                            flag= true;
                         }
 
-                        catch(InputMismatchException ex){
-                            System.out.println("El valor no concuerda");
-                        } finally{
-                            break;
+                    }while (flag);
+                    break;
+                case 2:
+                    em = empresa.getPlanilla();
 
-                        }
-                    case 2:
-                        em = empresa.getPlanilla();
+                    System.out.println("Empleado a despedir: ");
+                    eliminar = scan.nextLine();
 
-                        System.out.println("usuario a eliminar: ");
-                        eliminar = scan.nextLine();
+                    String finalEliminar = eliminar;
+                    em.removeIf(s -> s.nombreEmpleado.equals(finalEliminar));
 
-                        String finalEliminar = eliminar;
-                        em.removeIf(s -> s.nombreEmpleado.equals(finalEliminar));
+                    empresa.setPlanilla(em);
+                    break;
+                case 3:
+                    em = empresa.getPlanilla();
 
-                        empresa.setPlanilla(em);
-
-                        break;
-                    case 3:
-                        em = empresa.getPlanilla();
-
-                        em.forEach(s -> System.out.println(s.info()));
-                        documento.forEach(s -> System.out.println(s.getNombreDocumento() + s.getNumero()));
+                    em.forEach(s -> System.out.println("\nDatos del empleado\n" + s.toString()));
+                    dm.forEach(s-> System.out.println("\nDocumentos\n " + s.toString()));
 
 
-                        break;
-                    case 4:
-                        em = empresa.getPlanilla();
-                        for (Empleado e : em) {
-                            System.out.println("Empleado: " + e.nombreEmpleado);
-                            System.out.println("Puesto: " + e.puesto);
-                            System.out.println("Su sueldo es de: " + imp.calcularPago(e));
-                            System.out.println("\n");
-                        }
+                    break;
+                case 4:
+                    em = empresa.getPlanilla();
+                    for (Empleado e : em) {
+                        System.out.println("Empleado: " + e.nombreEmpleado);
+                        System.out.println("Puesto: " + e.puesto);
+                        System.out.println("Su sueldo es de: " + imp.calcularPago(e));
+                        System.out.println("\n");
+                    }
 
-                        break;
-                    case 5:
-                        System.out.println(imp.mostrarTotales());
-                        break;
-                    case 0:
-                        break;
-                    default:
-                        System.out.println("Valor incorrecto");
-                }
+                    break;
+                case 5:
+                    System.out.println(imp.mostrarTotales());
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Valor incorrecto");
             }
+
+
         }
         while (opcion != 0);
-
-
     }
 
     static String menu(){
@@ -205,4 +197,5 @@ public class Main {
     }
 
 }
+
 

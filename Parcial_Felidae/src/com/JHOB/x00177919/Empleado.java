@@ -48,7 +48,4 @@ public class Empleado {
         this.salario = salario;
     }
 
-    public String info(){
-        return"";
-    };
 }
