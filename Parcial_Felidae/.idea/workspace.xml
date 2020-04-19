@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0a282dc-5c20-425a-8c8a-28e48714d8be" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/JHOB/x00177919/CalculadoraImpuestos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/JHOB/x00177919/Documento.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/JHOB/x00177919/ErrorInputDataException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/JHOB/x00177919/ErrorInvalidDataException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/JHOB/x00177919/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/JHOB/x00177919/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,10 +64,17 @@
       <updated>1587244074808</updated>
       <workItem from="1587244080584" duration="1068000" />
       <workItem from="1587253716470" duration="146000" />
+      <workItem from="1587261263157" duration="856000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="488" y="79" key="#com.intellij.ide.util.MemberChooser" timestamp="1587264286417">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="488" y="79" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1587264286417" />
   </component>
 </project>
