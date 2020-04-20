@@ -1,11 +1,15 @@
 package com.JHOB.x00177919;
 
-public class PlazaFija extends Empleado {
+public class PlazaFija extends Empleado{
     private int extension;
 
     public PlazaFija(String nombre, String puesto, double salario, int extension) {
         super(nombre, puesto, salario);
         this.extension = extension;
+    }
+
+    public PlazaFija(String nombreD, String numero) {
+
     }
 
     public int getExtension() {
@@ -17,7 +21,7 @@ public class PlazaFija extends Empleado {
     }
 
     @Override
-    public String info(){
+    public String toString(){
         return "Nombre: " + nombreEmpleado + "\nPuesto: " + puesto + "\nSalario: " + salario +
                 "\nTelefono: " + extension;
     }
