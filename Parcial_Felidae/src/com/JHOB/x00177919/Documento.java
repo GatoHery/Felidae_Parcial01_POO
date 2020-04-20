@@ -19,4 +19,10 @@ public class Documento {
         return numero;
     }
 
+    @Override
+    public String toString() {
+        return "Documento" +
+                "\nNombre: " + nombre  +
+                "\nNumero: " + numero ;
+    }
 }

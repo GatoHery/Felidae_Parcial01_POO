@@ -15,22 +15,19 @@ public class CalculadoraImpuestos {
         double ISSS = 0;
         double restante = 0;
 
-        if(empleado.puesto == "Servicio profesional"){
-            renta = empleado.salario;
-            renta *= 0.1;
-
+        if(empleado instanceof ServicioProfesional){
+            renta = empleado.salario * 0.1;
             totalRenta += renta;
+            System.out.println("Su descuento de renta es: $" + renta);
             pagoFinal = empleado.salario - renta;
 
         }
-        else if(empleado.puesto == "Plaza fija") {
-            AFP = empleado.salario;
-            AFP *= 0.0625;
+        else if(empleado instanceof PlazaFija) {
+            AFP = empleado.salario *0.0625;
 
             this.AFP += AFP;
 
-            ISSS = empleado.salario;
-            ISSS *= 0.03;
+            ISSS = empleado.salario * 0.03;
 
             totalISSS += ISSS;
             restante = empleado.salario - AFP - ISSS;
@@ -45,21 +42,21 @@ public class CalculadoraImpuestos {
             else if(restante >= 472.01 && restante <= 895.24){
                 renta = 0.1*(restante - 472) + 17.67;
                 totalRenta += renta;
-                System.out.println("Su descuento de renta es: " + renta );
+                System.out.println("Su descuento de renta es: $" + renta );
                 pagoFinal = restante - renta;
 
             }
             else if(restante >= 895.25 && restante <= 2038.10){
                 renta = 0.2*(restante - 895.24) + 60;
                 totalRenta += renta;
-                System.out.println("Su descuento de renta es : " + renta);
+                System.out.println("Su descuento de renta es : $" + renta);
                 pagoFinal = restante - renta;
 
             }
             else if(restante >= 2038.11){
                 renta = 0.3*(restante -2038.10) + 288.57;
                 totalRenta += renta;
-                System.out.println("Su descuento de renta es : " + renta);
+                System.out.println("Su descuento de renta es : $" + renta);
                 pagoFinal = restante - renta;
 
             }
@@ -69,9 +66,8 @@ public class CalculadoraImpuestos {
     }
 
     public String mostrarTotales(){
-        return "Totales:\n " + "AFP: " + this.AFP + "\nISSS: " + totalISSS + "\nRenta: " + totalRenta ;
+        return "Totales:\n" + "AFP: $" + this.AFP + "\nISSS: $" + totalISSS + "\nRenta: $" + totalRenta ;
 
 
     }
-
 }

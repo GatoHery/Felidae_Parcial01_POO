@@ -26,7 +26,7 @@ public class ServicioProfesional extends Empleado {
 
     @Override
     public String toString() {
-        return "Nombre: " + nombreEmpleado + "\nPuesto: " + puesto + "\nTipo de contrato: Servicio Profesional" + "\nSalario: " + salario
-                + "\nTiempo de contrato: " + mesesContrato + " meses" ;
+        return "Nombre: " + nombreEmpleado + "\nPuesto: " + puesto + "\nTipo de contrato: Servicio Profesional"
+                + "\nSalario: " + salario + "\nTiempo de contrato: " + mesesContrato + " meses" ;
     }
 }

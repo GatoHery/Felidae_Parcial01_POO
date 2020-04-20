@@ -37,7 +37,7 @@ public class Main {
                 cont = false;
                 System.out.print("Nombre de la empresa: ");
                 nombreEmpresa = scan.nextLine();
-                if (verificacionNumero(nombreEmpresa)) {
+                if (numeroenString(nombreEmpresa)) {
                     throw new NumberFormatException("No ingrese numeros");
                 }
             } catch (NumberFormatException ex) {
@@ -69,17 +69,21 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-
-
                     boolean flag = false;
                     do {
                         try {
+                            flag = false;
                             System.out.print("\nNombre del empleado: ");
                             nombreEmpleado = scan.nextLine();
+                            if (numeroenString(nombreEmpleado)) {
+                                throw new NumberFormatException("No ingrese numeros");
+                            }
 
                             System.out.print("Puesto que ejerce: ");
                             puesto = scan.nextLine();
-
+                            if (numeroenString(puesto)) {
+                                throw new NumberFormatException("No ingrese numeros");
+                            }
 
                             flag = false;
                             System.out.print("\nContrato del empleado \n1.Servicio Profesional \n2.Plaza Fija"
@@ -88,6 +92,7 @@ public class Main {
                             scan.nextLine();
 
                             if (trabajo == 1) {
+                                flag = true;
                                 System.out.print("Digite salario: ");
                                 salario = scan.nextDouble();
                                 scan.nextLine();
@@ -112,6 +117,9 @@ public class Main {
                                 for (int i = 0; i < doc; i++) {
                                     System.out.print("Nombre de identificacion: ");
                                     nombreD = scan.nextLine();
+                                    if (numeroenString(nombreD)) {
+                                        throw new NumberFormatException("No ingrese numeros");
+                                    }
 
                                     System.out.print("Numero de identificacion: ");
                                     numero = scan.nextLine();
@@ -128,6 +136,7 @@ public class Main {
 
 
                             } else if (trabajo == 2) {
+                                flag = true;
                                 System.out.print("Digite salario: ");
                                 salario = scan.nextDouble();
                                 scan.nextLine();
@@ -135,7 +144,7 @@ public class Main {
                                     throw new ErrorInvalidDataException("Ingresar un salario valido");
                                 }
 
-                                System.out.print("Telefono ");
+                                System.out.print("Telefono: ");
                                 extension = scan.nextInt();
                                 scan.nextLine();
 
@@ -150,6 +159,9 @@ public class Main {
                                 for (int i = 0; i < docu; i++) {
                                     System.out.print("Nombre de identificacion: ");
                                     nombreD = scan.nextLine();
+                                    if (numeroenString(nombreD)) {
+                                        throw new NumberFormatException("No ingrese numeros");
+                                    }
 
                                     System.out.print("Numero de identificacion: ");
                                     numero = scan.nextLine();
@@ -164,11 +176,23 @@ public class Main {
                                     });
 
                                 }
+
                             }
+                            if(flag == false){
+                                throw new ErrorInvalidDataException("Valor invalido");
+                            }
+
+                            flag = false;
+
                         } catch (NumberFormatException ex) {
                             System.out.println(ex.getMessage());
                             flag = true;
-                        } catch (ErrorInvalidDataException ex) {
+                        }
+                        catch (InputMismatchException ex){
+                           scan.nextLine(); System.out.println("Valor invalido");
+                            flag = true;
+                        }
+                        catch (ErrorInvalidDataException ex) {
                             scan.nextLine(); System.out.println("El valor no concuerda");
                             flag= true;
                         }
@@ -189,7 +213,8 @@ public class Main {
                 case 3:
                     em = empresa.getPlanilla();
 
-                    em.forEach(s -> System.out.println("\nDatos del empleado\n" + s.toString() + "\n" + s.getDocumentos()));
+                    em.forEach(s -> System.out.println("\nDatos del empleado\n" + s.toString() + "\n"
+                            + s.getDocumentos()));
 
                     break;
                 case 4:
@@ -221,8 +246,8 @@ public class Main {
     }
 
 
-    public static boolean verificacionNumero(String VerNum) {
-        char[] letras = VerNum.toCharArray();
+    public static boolean numeroenString(String n) {
+        char[] letras = n.toCharArray();
         char[] var2 = letras;
         int var3 = letras.length;
 
